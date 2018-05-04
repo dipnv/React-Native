@@ -34,81 +34,124 @@ export default class LoginForm extends Component {
     const { isLoading, onSignupLinkPress, onLoginPress } = this.props
     const isValid = email !== '' && password !== ''
     return (
-      <View style={styles.container}>
-        <View style={styles.form} ref={(ref) => { this.formRef = ref }}>
-          <CustomTextInput
-            name={'email'}
-            ref={(ref) => this.emailInputRef = ref}
-            placeholder={'Email'}
-            keyboardType={'email-address'}
-            editable={!isLoading}
-            returnKeyType={'next'}
-            blurOnSubmit={false}
-            withRef={true}
-            onSubmitEditing={() => this.passwordInputRef.focus()}
-            onChangeText={(value) => this.setState({ email: value })}
-            isEnabled={!isLoading}
-          />
-          <CustomTextInput
-            name={'password'}
-            ref={(ref) => this.passwordInputRef = ref}
-            placeholder={'Password'}
-            editable={!isLoading}
-            returnKeyType={'done'}
-            secureTextEntry={true}
-            withRef={true}
-            onChangeText={(value) => this.setState({ password: value })}
-            isEnabled={!isLoading}
-          />
-        </View>
-        <View style={styles.footer}>
-          <View ref={(ref) => this.buttonRef = ref} animation={'bounceIn'} duration={600} delay={400}>
-            <CustomButton
-              onPress={() => onLoginPress(email, password)}
-              isEnabled={isValid}
-              isLoading={isLoading}
-              buttonStyle={styles.loginButton}
-              textStyle={styles.loginButtonText}
-              text={'Log In'}
-            />
-          </View>
-          <Text
+      <View style= {styles.container}>
+          <View style={styles.containerForm}>
+            <View style={styles.loginTextContainer}>
+                <Text style={styles.loginText} numberOfLines={1}>
+                {'LOGIN'}
+                </Text>
+                </View>
+                <View style={styles.separator} />
+            <View style={styles.form} ref={(ref) => { this.formRef = ref }}>
+              <CustomTextInput
+                name={'email'}
+                ref={(ref) => this.emailInputRef = ref}
+                placeholder={'Email'}
+                keyboardType={'email-address'}
+                editable={!isLoading}
+                returnKeyType={'next'}
+                blurOnSubmit={false}
+                withRef={true}
+                onSubmitEditing={() => this.passwordInputRef.focus()}
+                onChangeText={(value) => this.setState({ email: value })}
+                isEnabled={!isLoading}
+              />
+              <CustomTextInput
+                name={'password'}
+                ref={(ref) => this.passwordInputRef = ref}
+                placeholder={'Password'}
+                editable={!isLoading}
+                returnKeyType={'done'}
+                secureTextEntry={true}
+                withRef={true}
+                onChangeText={(value) => this.setState({ password: value })}
+                isEnabled={!isLoading}
+              />
+            </View>
+            <View style={styles.footer}>
+                <Text
+                ref={(ref) => this.linkRef = ref}
+                style={styles.forgotPasswordLink}
+                >
+                {'Forgot password?'}
+                </Text>
+              <View ref={(ref) => this.buttonRef = ref} animation={'bounceIn'} duration={600} delay={400}>
+                <CustomButton
+                  onPress={() => onLoginPress(email, password)}
+                  isEnabled={isValid}
+                  isLoading={isLoading}
+                  buttonStyle={styles.loginButton}
+                  textStyle={styles.loginButtonText}
+                  text={'LOGIN'}
+                />
+              </View>
+            </View>
+            </View>
+            <Text
             ref={(ref) => this.linkRef = ref}
             style={styles.signupLink}
             onPress={onSignupLinkPress}
             animation={'fadeIn'}
             duration={600}
             delay={400}
-          >
-            {'Not registered yet?'}
-          </Text>
-        </View>
+            >
+            {'Register a new account!'}
+            </Text>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: metrics.DEVICE_WIDTH * 0.1
+ container:{
+    margin: 5,
+    },
+ containerForm: {
+    margin: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#999999'
   },
+  loginTextContainer: {
+    margin: 5
+ },
+ loginText: {
+    justifyContent: 'center',                                 
+    fontSize: 16,
+    fontWeight: '500',
+    marginLeft: 5,
+    height: 20
+ },
+ separator: {
+    backgroundColor: '#258FFB',
+    height: StyleSheet.hairlineWidth,
+    marginVertical: 0
+ },
   form: {
-    marginTop: 20
+    margin: 0
   },
   footer: {
-    height: 100,
+    height: 120,
     justifyContent: 'center'
   },
+  forgotPasswordLink: {
+    color: '#258FFB',
+    alignSelf: 'center',
+    padding: 20
+ },
   loginButton: {
-    backgroundColor: 'white'
+     backgroundColor: '#238EFB',
+     marginLeft: 10,
+     marginRight: 10
   },
   loginButtonText: {
-    color: '#3E464D',
+    color: '#999999',
     fontWeight: 'bold'
   },
   signupLink: {
-    color: 'rgba(255,255,255,0.6)',
+    color: '#258FFB',
     alignSelf: 'center',
-    padding: 20
+    padding: 20,
+                                 paddingTop: 5
   }
 })

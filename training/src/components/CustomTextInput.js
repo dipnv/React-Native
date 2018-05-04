@@ -18,8 +18,8 @@ export default class AuthTextInput extends Component {
   render () {
     const { isEnabled, ...otherProps } = this.props
     const { isFocused } = this.state
-    const color = isEnabled ? 'white' : 'rgba(255,255,255,0.4)'
-    const borderColor = isFocused ? 'white' : 'rgba(255,255,255,0.4)'
+    const color = isEnabled ? 'black' : 'rgba(153,153,153,0.4)'
+    const borderColor = isFocused ? 'black' : 'rgba(153,153,153,0.4)'
     return (
       <View style={styles.container}>
         <View style={[styles.textInputWrapper, { borderColor }]}>
@@ -30,7 +30,7 @@ export default class AuthTextInput extends Component {
             style={[styles.textInput, { color }]}
             maxLength={32}
             underlineColorAndroid={'transparent'}
-            placeholderTextColor={'rgba(255,255,255,0.4)'}
+            placeholderTextColor={'rgba(153,153,153,0.4)'}
             selectionColor={'white'}
             onFocus={() => this.setState({ isFocused: true })}
             onBlur={() => this.setState({ isFocused: false })}
@@ -45,6 +45,8 @@ export default class AuthTextInput extends Component {
 const styles = StyleSheet.create({
   container: {
     marginTop: 2,
+    marginLeft: 10,
+    marginRight: 10,
     marginBottom: 10
   },
   textInputWrapper: {
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    color: 'white',
+    color: '#999999',
     margin: IS_ANDROID ? -1 : 0,
     height: 42,
     padding: 7

@@ -8,8 +8,9 @@ import { KeyboardAvoidingView,
          Dimensions
         } from 'react-native'
 import { Image, View } from 'react-native-animatable'
-
+import CustomButton from '../../components/CustomButton';
 import imgLogo from '../../images/logo.png'
+import imgBg from '../../images/bg.png';
 import metrics from '../../config/metrics'
 
 import Opening from './Opening'
@@ -94,7 +95,25 @@ export default class AuthScreen extends Component {
     // The following style is responsible of the "bounce-up from bottom" animation of the form
     const formStyle = (!visibleForm) ? { height: 0 } : { marginTop: 40 }
     return (
-      <View style={styles.container}>
+      <View style={styles.containerRow}>
+            <Image
+            animation={'bounceIn'}
+            duration={1200}
+            delay={200}
+            ref={(ref) => this.logoImgRef = ref}
+            style={styles.imgBg}
+            source={imgBg}
+            >
+            <View style={styles.paddingTopView} >
+            {(visibleForm === 'SIGNUP') && (
+            <CustomButton
+            onPress={() => this._setVisibleForm('LOGIN')}
+            buttonStyle={styles.backButton}
+            textStyle={styles.backButtonText}
+            text={'Back'}
+            />
+                                            )}
+            </View>
             <View style={styles.row}>
                 <Image
                       animation={'bounceIn'}
@@ -138,39 +157,53 @@ export default class AuthScreen extends Component {
                     />
                   )}
                 </KeyboardAvoidingView>
+            </Image>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    width: metrics.DEVICE_WIDTH,
-    height: metrics.DEVICE_HEIGHT,
-    paddingTop: 10,
+ containerRow: {
+     justifyContent: 'center',
+     flexDirection:'row',
+     alignItems: 'center',
+     width: metrics.DEVICE_WIDTH,
+     height: metrics.DEVICE_HEIGHT,
+ },
+  bottom: {
     backgroundColor: 'white'
   },
-  bottom: {
-    backgroundColor: '#1976D2'
-  },
+  imgBg: {
+     width: metrics.DEVICE_WIDTH,
+     height: metrics.DEVICE_HEIGHT,
+     resizeMode: 'cover'
+ },
+ paddingTopView: {
+     height: (metrics.DEVICE_HEIGHT/6)
+ },
+ backButton: {
+     backgroundColor: '#EBF1FE',
+                                 borderWidth: 0,
+     marginLeft: (metrics.DEVICE_WIDTH - 70 - 20),
+     marginRight: 20
+ },
+                                 backButtonText: {
+                                 color: '#258FFB',
+                                 fontSize: 16,
+                                 fontWeight: 'bold'
+                                 },
  row: {
      justifyContent: 'center',
      flexDirection:'row',
-     padding: 5,
-     margin: 3,
-     width: (Dimensions.get('window').width - 10) ,
-     height: (Dimensions.get('window').height/3),
-     backgroundColor: '#F6F6F6',
-     alignItems: 'center',
-     borderWidth: 1,
-     borderRadius: 5,
-     borderColor: '#CCC'
+     padding: 0,
+     margin: 20,
+     width: (Dimensions.get('window').width - 40) ,
+     height: (Dimensions.get('window').height/6),
+     alignItems: 'center'     
  },
  logoImg: {
-     justifyContent: 'center',
-     backgroundColor: '#dddddd',
+     justifyContent: 'center',     
      height: ((Dimensions.get('window').height - 210)/4 - 2),
      width: ((Dimensions.get('window').height - 210)/4 - 2),
  },
@@ -179,6 +212,7 @@ const styles = StyleSheet.create({
  },
  logoText: {
      justifyContent: 'center',
+     color: '#548FFB',
      fontSize: 64,
      fontWeight: '500',
      marginLeft: 20,
