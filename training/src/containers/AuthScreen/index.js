@@ -104,31 +104,34 @@ export default class AuthScreen extends Component {
             style={styles.imgBg}
             source={imgBg}
             >
-            <View style={styles.paddingTopView} >
             {(visibleForm === 'SIGNUP') && (
-            <CustomButton
-            onPress={() => this._setVisibleForm('LOGIN')}
-            buttonStyle={styles.backButton}
-            textStyle={styles.backButtonText}
-            text={'Back'}
-            />
-                                            )}
-            </View>
-            <View style={styles.row}>
-                <Image
-                      animation={'bounceIn'}
-                      duration={1200}
-                      delay={200}
-                      ref={(ref) => this.logoImgRef = ref}
-                      style={styles.logoImg}
-                      source={imgLogo}
-                    />
-                <View style={styles.textContainer}>
-                    <Text style={styles.logoText} numberOfLines={1}>
-                        {'Archer'}
-                    </Text>
+                <CustomButton
+                onPress={() => this._setVisibleForm('LOGIN')}
+                buttonStyle={styles.backButton}
+                textStyle={styles.backButtonText}
+                text={'Back'}
+                />
+            )}
+            {(visibleForm != 'SIGNUP') && (
+                                           <View style={{flex:1}}>
+                                           <View style={styles.paddingTopView} />
+                <View style={styles.row}>
+                    <Image
+                          animation={'bounceIn'}
+                          duration={1200}
+                          delay={200}
+                          ref={(ref) => this.logoImgRef = ref}
+                          style={styles.logoImg}
+                          source={imgLogo}
+                        />
+                    <View style={styles.textContainer}>
+                        <Text style={styles.logoText} numberOfLines={1}>
+                            {'Archer'}
+                        </Text>
+                    </View>
                 </View>
-            </View>
+                                           </View>
+            )}
                 {(!visibleForm && !isLoggedIn) && (
                   <Opening
                     onCreateAccountPress={() => this._setVisibleForm('SIGNUP')}
@@ -184,15 +187,15 @@ const styles = StyleSheet.create({
  },
  backButton: {
      backgroundColor: '#EBF1FE',
-                                 borderWidth: 0,
+     borderWidth: 0,
      marginLeft: (metrics.DEVICE_WIDTH - 70 - 20),
      marginRight: 20
  },
-                                 backButtonText: {
-                                 color: '#258FFB',
-                                 fontSize: 16,
-                                 fontWeight: 'bold'
-                                 },
+ backButtonText: {
+     color: '#258FFB',
+     fontSize: 16,
+     fontWeight: 'bold'
+ },
  row: {
      justifyContent: 'center',
      flexDirection:'row',

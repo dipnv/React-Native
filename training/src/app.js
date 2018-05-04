@@ -24,7 +24,7 @@ export class LoginAnimation extends Component {
     setTimeout(() => this.setState({ isLoggedIn: true, isLoading: false }), 1000)
   }
 
-  _simulateSignup = (username, password, fullName) => {
+  _simulateSignup = (username, password, firstName) => {
     this.setState({ isLoading: true })
     setTimeout(() => this.setState({ isLoggedIn: true, isLoading: false }), 1000)
   }

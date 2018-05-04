@@ -40,8 +40,8 @@ export default class LoginForm extends Component {
                 <Text style={styles.loginText} numberOfLines={1}>
                 {'LOGIN'}
                 </Text>
-                </View>
-                <View style={styles.separator} />
+            </View>
+            <View style={styles.separator} />
             <View style={styles.form} ref={(ref) => { this.formRef = ref }}>
               <CustomTextInput
                 name={'email'}
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#999999'
   },
-  loginTextContainer: {
+ loginTextContainer: {
     margin: 5
  },
  loginText: {
