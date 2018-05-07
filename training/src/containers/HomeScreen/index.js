@@ -22,7 +22,10 @@
  * @flow
  */
 'use strict';
-
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import Icon from 'react-native-vector-icons/Ionicons';
+import HomeTabBar from './class/HomeTabBar';
+import CustomButton from '../../components/CustomButton'
 var React = require('react');
 var ReactNative = require('react-native');
 
@@ -34,6 +37,8 @@ var {
   StyleSheet,
   ToolbarAndroid,
   View,
+  ScrollView,
+  Text
 } = ReactNative;
 
 var DetailScreen = require('./DetailScreen');
@@ -52,7 +57,39 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
   _navigator = navigationOperations;
   if (route.name === 'search') {
     return (
-      <SearchScreen navigator={navigationOperations} />
+            <ScrollableTabView
+            style={{marginTop: 10 }}
+            tabBarPosition= {'bottom'}
+            initialPage={0}
+            renderTabBar={() => <HomeTabBar titles={['Home','Activities','AddListings','Notifications','Others']}/>
+            }
+            ref= "tabView"
+            >
+            
+                <ScrollView tabLabel="ios-home"  style={styles.tabView}>
+                    <SearchScreen navigator={navigationOperations} />
+                </ScrollView>
+                <ScrollView tabLabel="ios-albums"  style={styles.tabView}>
+                    <View style={styles.card}>
+            <Text>{'Acti'}</Text>
+                    </View>
+                </ScrollView>
+                <ScrollView tabLabel="ios-add"  style={styles.tabView}>
+                    <View style={styles.card}>
+            <Text>{'  Add Listings'}</Text>
+                    </View>
+                </ScrollView>
+                <ScrollView tabLabel="ios-notifications"  style={styles.tabView}>
+                    <View style={styles.card}>
+            <Text>{'  Noti'}</Text>
+                    </View>
+                </ScrollView>
+                <ScrollView tabLabel="ios-more"  style={styles.tabView}>
+                    <View style={styles.card}>
+                        <Text>{'  Others'}</Text>
+                    </View>
+                </ScrollView>
+            </ScrollableTabView>
     );
   } else if (route.name === 'movie') {
     return (
@@ -78,7 +115,7 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
   }
 };
 
-class AwesomeProject extends React.Component {
+class HomeScreen extends React.Component {
   render() {
     var initialRoute = {name: 'search'};
     return (
@@ -101,8 +138,12 @@ var styles = StyleSheet.create({
     backgroundColor: '#a9a9a9',
     height: 56,
   },
+                               button: {
+                               backgroundColor: '#1976D2',
+                               margin: 20
+                               }
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+AppRegistry.registerComponent('HomeScreen', () => HomeScreen);
 
-module.exports = AwesomeProject;
+module.exports = HomeScreen;

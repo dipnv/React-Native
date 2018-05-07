@@ -9,7 +9,9 @@
 	"dependencies": {
 		"react": "15.4.1",
 		"react-native": "0.39.2",
-		"react-native-animatable": "1.1.0"
+		"react-native-animatable": "1.1.0",
+		"react-native-scrollable-tab-view": "^0.7.0",
+		"react-native-vector-icons": "^4.6.0"
 	},
 	"devDependencies": {
 		"babel-eslint": "7.1.1",
