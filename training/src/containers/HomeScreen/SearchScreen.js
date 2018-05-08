@@ -246,7 +246,13 @@ var SearchScreen = React.createClass({
     this.clearTimeout(this.timeoutID);
     this.timeoutID = this.setTimeout(() => this.searchMovies(filter), 100);
   },
-
+                                     renderHeader: function() {
+                                     return <View style={{height: 50, backgroundColor: 'white'}}>
+                                     <Text> {'New listings near your.'}
+                                     </Text>
+                                     <View style={styles.separator} />
+                                     </View>;
+                                     },
   renderFooter: function() {
     if (!this.hasMore() || !this.state.isLoadingTail) {
       return <View style={styles.scrollSpinner} />;
@@ -286,9 +292,9 @@ var SearchScreen = React.createClass({
     );
   },
 
-  render: function() {
+  render: function() {                                     
     var content = this.state.dataSource.getRowCount() === 0 ?
-      <NoMovies
+      <NoResults
         filter={this.state.filter}
         isLoading={this.state.isLoading}
       /> :
@@ -296,6 +302,7 @@ var SearchScreen = React.createClass({
         ref="listview"
         renderSeparator={this.renderSeparator}
         dataSource={this.state.dataSource}
+                                     renderHeader={this.renderHeader}
         renderFooter={this.renderFooter}
         renderRow={this.renderRow}
         onEndReached={this.onEndReached}
@@ -308,6 +315,7 @@ var SearchScreen = React.createClass({
     return (
       <View style={styles.container}>
         <SearchBar
+            text={'Home Page'}
           onSearchChange={this.onSearchChange}
           isLoading={this.state.isLoading}
           onFocus={() =>
@@ -320,7 +328,7 @@ var SearchScreen = React.createClass({
   },
 });
 
-class NoMovies extends React.Component {
+class NoResults extends React.Component {
   render() {
     var text = '';
     if (this.props.filter) {
@@ -328,26 +336,26 @@ class NoMovies extends React.Component {
     } else if (!this.props.isLoading) {
       // If we're looking at the latest movies, aren't currently loading, and
       // still have no results, show a message
-      text = 'No movies found';
+      text = 'No result found';
     }
 
     return (
       <View style={[styles.container, styles.centerText]}>
-        <Text style={styles.noMoviesText}>{text}</Text>
+        <Text style={styles.NoResultsText}>{text}</Text>
       </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
-  container: {
+  container: {                              
     flex: 1,
     backgroundColor: 'white',
   },
   centerText: {
     alignItems: 'center',
   },
-  noMoviesText: {
+  NoResultsText: {
     marginTop: 80,
     color: '#888888',
   },

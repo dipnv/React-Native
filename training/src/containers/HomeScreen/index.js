@@ -58,7 +58,7 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
   if (route.name === 'search') {
     return (
             <ScrollableTabView
-            style={{marginTop: 10 }}
+            style={{marginTop: 0 }}
             tabBarPosition= {'bottom'}
             initialPage={0}
             renderTabBar={() => <HomeTabBar titles={['Home','Activities','AddListings','Notifications','Others']}/>
@@ -71,7 +71,7 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
                 </ScrollView>
                 <ScrollView tabLabel="ios-albums"  style={styles.tabView}>
                     <View style={styles.card}>
-            <Text>{'Acti'}</Text>
+            <Text>{'  Acti'}</Text>
                     </View>
                 </ScrollView>
                 <ScrollView tabLabel="ios-add"  style={styles.tabView}>
@@ -87,6 +87,12 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
                 <ScrollView tabLabel="ios-more"  style={styles.tabView}>
                     <View style={styles.card}>
                         <Text>{'  Others'}</Text>
+            <CustomButton
+            text={'Logout'}
+            onPress={route.logout}
+            buttonStyle={styles.button}
+            textStyle={styles.buttonText}
+            />
                     </View>
                 </ScrollView>
             </ScrollableTabView>
@@ -117,7 +123,9 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
 
 class HomeScreen extends React.Component {
   render() {
-    var initialRoute = {name: 'search'};
+      var initialRoute = {name: 'search',
+                          logout: this.props.logout
+                          };
     return (
       <Navigator
         style={styles.container}

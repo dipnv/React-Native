@@ -22,11 +22,12 @@
  * @flow
  */
 'use strict';
-
 var React = require('react');
 var ReactNative = require('react-native');
 
 var nativeImageSource = require('nativeImageSource');
+import metrics from '../../config/metrics';
+import searchIcon from '../../images/home_search.png';
 var {
   Image,
   Platform,
@@ -34,49 +35,82 @@ var {
   TextInput,
   StyleSheet,
   TouchableNativeFeedback,
+    TouchableOpacity,
+    Text,
   View,
 } = ReactNative;
 
 var IS_RIPPLE_EFFECT_SUPPORTED = Platform.Version >= 21;
 
 class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showSearch: false
+        }
+    }
   render() {
     var background = IS_RIPPLE_EFFECT_SUPPORTED ?
       TouchableNativeFeedback.SelectableBackgroundBorderless() :
       TouchableNativeFeedback.SelectableBackground();
     return (
-      <View style={styles.searchBar}>
-        <TouchableNativeFeedback
-            background={background}
-            onPress={() => this.refs.input && this.refs.input.focus()}>
-          <View>
+            <View style={{marginTop: 0}}>
+      <View style={{height: 50, backgroundColor: '#205F8F'}}>
+            <Text style={{padding: 10, color: 'white'}}>
+            {this.props.text}
+            </Text>
+            </View>
+              { this.state.showSearch ?
+                                      <View style={styles.searchBar}>
+                                        <TouchableNativeFeedback
+                                            background={background}
+                                            onPress={() => this.refs.input && this.refs.input.focus()}>
+                                          <View>
+                                            <Image
+                                              source={nativeImageSource({
+                                                android: 'android_search_white',
+                                                width: 96,
+                                                height: 96
+                                              })}
+                                              style={styles.icon}
+                                            />
+                                          </View>
+                                        </TouchableNativeFeedback>
+                                        <TextInput
+                                          ref="input"
+                                          autoCapitalize="none"
+                                          autoCorrect={false}
+                                          autoFocus={true}
+                                          onChange={this.props.onSearchChange}
+                                          placeholder="Search..."
+                                          placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                                          onFocus={this.props.onFocus}
+                                          style={styles.searchBarInput}
+                                        />
+                                        <ActivityIndicator
+                                          animating={this.props.isLoading}
+                                          color="white"
+                                          size="large"
+                                          style={styles.spinner}
+                                        />
+                                        </View>
+            : <View style={{backgroundColor: 'white', height:25}} />
+            }
+            <TouchableOpacity
+            onPress={() => { this.setState({
+                                           showSearch: !this.state.showSearch
+                                           })
+            }}
+            style={styles.searchIconStyle}>
             <Image
-              source={nativeImageSource({
-                android: 'android_search_white',
-                width: 96,
-                height: 96
-              })}
-              style={styles.icon}
+            animation={'bounceIn'}
+            duration={1200}
+            delay={200}
+            ref={(ref) => this.logoImgRef = ref}
+            style={styles.searchImg}
+            source={searchIcon}
             />
-          </View>
-        </TouchableNativeFeedback>
-        <TextInput
-          ref="input"
-          autoCapitalize="none"
-          autoCorrect={false}
-          autoFocus={true}
-          onChange={this.props.onSearchChange}
-          placeholder="Search..."
-          placeholderTextColor="rgba(255, 255, 255, 0.5)"
-          onFocus={this.props.onFocus}
-          style={styles.searchBarInput}
-        />
-        <ActivityIndicator
-          animating={this.props.isLoading}
-          color="white"
-          size="large"
-          style={styles.spinner}
-        />
+            </TouchableOpacity>
       </View>
     );
   }
@@ -108,6 +142,19 @@ var styles = StyleSheet.create({
     height: 24,
     marginHorizontal: 8,
   },
+                               searchIconStyle:{
+                               marginTop: 25,
+                               marginLeft: (metrics.DEVICE_WIDTH - 70),
+                               height: 50,
+                               width: 50,
+                               position: 'absolute'
+                               },
+                               searchImg: {
+                               justifyContent: 'center',
+                               height: 50,
+                               width: 50,
+                               resizeMode: 'contain'
+                               }
 });
 
 module.exports = SearchBar;
