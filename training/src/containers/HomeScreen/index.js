@@ -33,14 +33,14 @@ var nativeImageSource = require('nativeImageSource');
 var {
   AppRegistry,
   BackAndroid,
-  Navigator,
   StyleSheet,
   ToolbarAndroid,
   View,
   ScrollView,
   Text
+    
 } = ReactNative;
-
+var NavigatorFB = require('react-native-deprecated-custom-components');
 var DetailScreen = require('./DetailScreen');
 var SearchScreen = require('./SearchScreen');
 
@@ -127,10 +127,10 @@ class HomeScreen extends React.Component {
                           logout: this.props.logout
                           };
     return (
-      <Navigator
+      <NavigatorFB.Navigator
         style={styles.container}
         initialRoute={initialRoute}
-        configureScene={() => Navigator.SceneConfigs.FadeAndroid}
+        configureScene={() => NavigatorFB.Navigator.SceneConfigs.FadeAndroid}
         renderScene={RouteMapper}
       />
     );

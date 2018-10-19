@@ -1,11 +1,13 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component} from 'react'
+import {PropTypes} from 'prop-types'
 import { KeyboardAvoidingView,
          LayoutAnimation,
          Platform,
          StyleSheet,
          UIManager,
          Text,
-         Dimensions
+         Dimensions,
+        ImageBackground
         } from 'react-native'
 import { Image, View } from 'react-native-animatable'
 import CustomButton from '../../components/CustomButton';
@@ -96,11 +98,10 @@ export default class AuthScreen extends Component {
     const formStyle = (!visibleForm) ? { height: 0 } : { marginTop: 40 }
     return (
       <View style={styles.containerRow}>
-            <Image
+            <ImageBackground
             animation={'bounceIn'}
             duration={1200}
             delay={200}
-            ref={(ref) => this.logoImgRef = ref}
             style={styles.imgBg}
             source={imgBg}
             >
@@ -160,7 +161,7 @@ export default class AuthScreen extends Component {
                     />
                   )}
                 </KeyboardAvoidingView>
-            </Image>
+            </ImageBackground>
       </View>
     )
   }
@@ -179,8 +180,7 @@ const styles = StyleSheet.create({
   },
   imgBg: {
      width: metrics.DEVICE_WIDTH,
-     height: metrics.DEVICE_HEIGHT,
-     resizeMode: 'cover'
+     height: metrics.DEVICE_HEIGHT
  },
  paddingTopView: {
      height: (metrics.DEVICE_HEIGHT/6)

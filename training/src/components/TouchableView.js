@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import { PropTypes } from 'prop-types'
 import { Platform, View, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
 
 const IS_ANDROID = Platform.OS === 'android'

@@ -56,8 +56,8 @@ var resultsCache = {
 };
 
 var LOADING = {};
-
-var SearchScreen = React.createClass({
+var createReactClass = require('create-react-class');
+var SearchScreen = createReactClass({
   mixins: [TimerMixin],
 
   timeoutID: (null: any),
